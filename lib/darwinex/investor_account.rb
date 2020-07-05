@@ -48,17 +48,11 @@ module Darwinex
       investor_account_info_api.get_investor_account(account_id)
     end
 
-    def list_conditional_orders(status:, product_name: nil, page: nil, per_page: nil)
-      args = {
-        product_name: product_name,
-        page: page,
-        per_page: per_page
-      }
-
+    def conditional_orders(status, product_name: nil, page: nil, per_page: nil)
       # TODO: status validation
       investor_account_info_api.list_conditional_orders(
         account_id,
-        status: status,
+        status,
         product_name: product_name,
         page: page,
         per_page: per_page,

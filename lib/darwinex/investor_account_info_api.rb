@@ -25,7 +25,7 @@ module Darwinex
       send('get', "/investoraccounts/#{account_id}", options)
     end
 
-    def list_conditional_orders(account_id, status:, product_name: nil, page: nil, per_page: nil) # TODO
+    def list_conditional_orders(account_id, status, product_name: nil, page: nil, per_page: nil)
       query = {
         query: {
           productName: product_name,
