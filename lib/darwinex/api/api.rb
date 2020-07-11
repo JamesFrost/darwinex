@@ -7,8 +7,10 @@ module Darwinex::Api
   class Api
     include HTTParty
 
-    def send(http_method, path, options)
-      response = self.class.public_send(http_method, path, options)
+    MAX_RETRIES = 3
+
+    def send(http_method, path, options, max_retries: MAX_RETRIES)
+      response = backoff_and_retry(http_method, path, options, max_retries: max_retries)
 
       parse_response_for_errors(response)
 
@@ -16,6 +18,22 @@ module Darwinex::Api
     end
 
     private
+
+    def backoff_and_retry(http_method, path, options, max_retries:)
+      retries = 0
+
+      begin
+        self.class.public_send(http_method, path, options)
+      rescue Errno::ECONNREFUSED, Net::ReadTimeout => e
+        if retries <= max_retries
+          retries += 1
+          sleep 2**retries
+          retry
+        else
+          raise e
+        end
+      end
+    end
 
     def parse_response_for_errors(response)
       unless response.success?
