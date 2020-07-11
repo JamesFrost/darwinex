@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require_relative 'invalid_credentials_error'
-require_relative 'error'
+require_relative '../error'
 
-module Darwinex
+module Darwinex::Api
   class Api
     include HTTParty
 

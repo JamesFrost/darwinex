@@ -5,7 +5,7 @@ require 'httparty'
 require_relative 'api'
 
 # https://api.darwinex.com/store/apis/info?name=InvestorAccountInfoAPI&version=2.0&provider=admin#/account-info/findInfoUsingGET
-module Darwinex
+module Darwinex::Api
   class InvestorAccountInfoApi < Api
     BASE_URI = 'https://api.darwinex.com/investoraccountinfo/'
 

@@ -3,7 +3,9 @@
 require 'httparty'
 require 'base64'
 
-module Darwinex
+require_relative 'api'
+
+module Darwinex::Api
   class TokenApi < Api
     BASE_URI = 'https://api.darwinex.com'
 

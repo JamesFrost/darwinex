@@ -5,7 +5,7 @@ require 'httparty'
 require_relative 'api'
 
 # https://api.darwinex.com/store/apis/info?name=DarwinTradingAPI&version=1.1&provider=admin#/
-module Darwinex
+module Darwinex::Api
   class TradingApi < Api
     BASE_URI = 'https://api.darwinex.com/trading'
 
