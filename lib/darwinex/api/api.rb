@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'invalid_credentials_error'
-require_relative '../error'
+require_relative 'error'
 
 module Darwinex::Api
   class Api
@@ -23,7 +23,7 @@ module Darwinex::Api
 
         if body.dig('fault', 'message') == 'Invalid Credentials'
           msg = body['fault']['description']
-          raise Darwinex::InvalidCredentialsError.new(msg, response)
+          raise InvalidCredentialsError.new(msg, response)
         end
 
         # Darwinex need to be more consistent with their API responses :(
@@ -35,7 +35,7 @@ module Darwinex::Api
           msg = body['fault']['description']
         end
 
-        raise Darwinex::Error.new(msg, response: response)
+        raise Error.new(msg, response: response)
       end
     end
   end
