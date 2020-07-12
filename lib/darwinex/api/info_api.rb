@@ -44,8 +44,7 @@ module Darwinex::Api
     def options
       {
         headers: {
-          Authorization: "Bearer #{config.access_token}",
-          'Content-Type' => 'application/json'
+          Authorization: "Bearer #{config.access_token}"
         }
       }
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'invalid_credentials_error'
+require_relative 'throttled_error'
 require_relative 'error'
 
 module Darwinex::Api
@@ -12,8 +13,6 @@ module Darwinex::Api
     def send(http_method, path, options, max_retries: MAX_RETRIES)
       response = backoff_and_retry(http_method, path, options, max_retries: max_retries)
 
-      parse_response_for_errors(response)
-
       response.parsed_response
     end
 
@@ -23,8 +22,12 @@ module Darwinex::Api
       retries = 0
 
       begin
-        self.class.public_send(http_method, path, options)
-      rescue Errno::ECONNREFUSED, Net::ReadTimeout => e
+        response = self.class.public_send(http_method, path, options)
+
+        parse_response_for_errors(response)
+
+        response
+      rescue Errno::ECONNREFUSED, Net::ReadTimeout, ThrottledError => e
         if retries <= max_retries
           retries += 1
           sleep 2**retries
@@ -36,6 +39,8 @@ module Darwinex::Api
     end
 
     def parse_response_for_errors(response)
+      # Darwinex need to be more consistent with their API responses :(
+
       unless response.success?
         body = response.parsed_response
 
@@ -44,7 +49,11 @@ module Darwinex::Api
           raise InvalidCredentialsError.new(msg, response)
         end
 
-        # Darwinex need to be more consistent with their API responses :(
+        if body.dig('fault', 'message') == 'Message throttled out'
+          msg = body['fault']['description']
+          raise ThrottledError.new(msg, response)
+        end
+
         if !body['status'].nil?
           msg = body['status']
         elsif !body['error_description'].nil?

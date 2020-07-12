@@ -39,6 +39,29 @@ module Darwinex
       )
     end
 
+    def list_products(status: nil, page: nil, per_page: nil)
+      args = {
+        status: status,
+        page: page,
+        per_page: per_page
+      }
+
+      api_response = info_api.list_products(args)
+
+      products = api_response['content'].map do |product|
+        Product.new(
+          product_name: product['productName'],
+          info_api: info_api
+        )
+      end
+
+      response = api_response.tap { |h| h.delete('content') }
+
+      response['products'] = products
+
+      response
+    end
+
     def product(product_name)
       Product.new(
         product_name: product_name,
