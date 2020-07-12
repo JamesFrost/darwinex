@@ -11,7 +11,8 @@ module Darwinex::Api
 
     base_uri BASE_URI
 
-    def initialize(config:, version: nil)
+    def initialize(config:, logger:, version: nil)
+      super(logger)
       @config = config
 
       self.class.base_uri(BASE_URI + '/' + version) unless version.nil?

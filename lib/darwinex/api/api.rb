@@ -8,7 +8,11 @@ module Darwinex::Api
   class Api
     include HTTParty
 
-    MAX_RETRIES = 3
+    MAX_RETRIES = 5
+
+    def initialize(logger)
+      @logger = logger
+    end
 
     def send(http_method, path, options, max_retries: MAX_RETRIES)
       response = backoff_and_retry(http_method, path, options, max_retries: max_retries)
@@ -17,6 +21,8 @@ module Darwinex::Api
     end
 
     private
+
+    attr_reader :logger
 
     def backoff_and_retry(http_method, path, options, max_retries:)
       retries = 0
@@ -28,9 +34,13 @@ module Darwinex::Api
 
         response
       rescue Errno::ECONNREFUSED, Net::ReadTimeout, ThrottledError => e
-        if retries <= max_retries
+        if retries < max_retries
           retries += 1
-          sleep 2**retries
+          backoff_time = 2**retries
+
+          logger.warn("#{e.message} - backing off for #{backoff_time} seconds")
+
+          sleep backoff_time
           retry
         else
           raise e

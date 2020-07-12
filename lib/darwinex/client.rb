@@ -10,9 +10,10 @@ require_relative 'config'
 
 module Darwinex
   class Client
-    def initialize(consumer_key:, consumer_secret:, trading_api_version: nil, investor_account_info_api_version: nil, info_api_version: nil)
+    def initialize(consumer_key:, consumer_secret:, logger: Logger.new(STDOUT, progname: 'Darwinex'), trading_api_version: nil, investor_account_info_api_version: nil, info_api_version: nil)
       @consumer_key = consumer_key
       @consumer_secret = consumer_secret
+      @logger = logger
       @trading_api_version = trading_api_version
       @investor_account_info_api_version = investor_account_info_api_version
     end
@@ -48,12 +49,7 @@ module Darwinex
 
       api_response = info_api.list_products(args)
 
-      products = api_response['content'].map do |product|
-        Product.new(
-          product_name: product['productName'],
-          info_api: info_api
-        )
-      end
+      products = api_response['content'].map { |product| product(product['productName']) }
 
       response = api_response.tap { |h| h.delete('content') }
 
@@ -71,14 +67,22 @@ module Darwinex
 
     private
 
-    attr_reader :consumer_key, :consumer_secret, :trading_api_version, :investor_account_info_api_version, :info_api_version
+    attr_reader :consumer_key, :consumer_secret, :logger, :trading_api_version, :investor_account_info_api_version, :info_api_version
 
     def investor_account_info_api
-      @investor_account_info_api ||= Api::InvestorAccountInfoApi.new(config: config, version: investor_account_info_api_version)
+      @investor_account_info_api ||= Api::InvestorAccountInfoApi.new(
+        config: config,
+        logger: logger,
+        version: investor_account_info_api_version
+      )
     end
 
     def trading_api
-      @trading_api ||= Api::TradingApi.new(config: config, version: trading_api_version)
+      @trading_api ||= Api::TradingApi.new(
+        config: config,
+        logger: logger,
+        version: trading_api_version
+      )
     end
 
     def config
@@ -90,11 +94,15 @@ module Darwinex
     end
 
     def token_api
-      @token_api ||= Api::TokenApi.new
+      @token_api ||= Api::TokenApi.new(logger: logger)
     end
 
     def info_api
-      @info_api ||= Api::InfoApi.new(config: config, version: info_api_version)
+      @info_api ||= Api::InfoApi.new(
+        config: config,
+        logger: logger,
+        version: info_api_version
+      )
     end
   end
 end

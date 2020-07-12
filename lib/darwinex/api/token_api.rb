@@ -11,6 +11,10 @@ module Darwinex::Api
 
     base_uri BASE_URI
 
+    def initialize(logger:)
+      super(logger)
+    end
+
     def refresh_access_token(refresh_token:, consumer_key:, consumer_secret:)
       auth_token = generate_auth_token(consumer_key, consumer_secret)
 
