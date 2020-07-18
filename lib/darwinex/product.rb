@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Darwinex
   class Product
     def initialize(product_name:, info_api:)
@@ -93,7 +95,6 @@ module Darwinex
         info_api.get_product_scores_badge(product_name, badge)
       end
     end
-
 
     private
 
