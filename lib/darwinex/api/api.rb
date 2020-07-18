@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'refresh_token_expired_error'
 require_relative 'invalid_credentials_error'
 require_relative 'throttled_error'
 require_relative 'error'
@@ -53,6 +54,11 @@ module Darwinex::Api
 
       unless response.success?
         body = response.parsed_response
+
+        if body['error'] == 'invalid_grant'
+          msg = body['error_description']
+          raise RefreshTokenExpiredError.new(msg, response)
+        end
 
         if body.dig('fault', 'message') == 'Invalid Credentials'
           msg = body['fault']['description']
