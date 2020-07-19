@@ -7,15 +7,13 @@ require_relative 'api'
 # https://api.darwinex.com/store/apis/info?name=InvestorAccountInfoAPI&version=2.0&provider=admin#/account-info/findInfoUsingGET
 module Darwinex::Api
   class InvestorAccountInfoApi < Api
-    BASE_URI = 'https://api.darwinex.com/investoraccountinfo/'
+    BASE_URI = 'https://api.darwinex.com/investoraccountinfo/2.0'
 
     base_uri BASE_URI
 
-    def initialize(config:, logger:, version: nil)
+    def initialize(config:, logger:)
       super(logger)
       @config = config
-
-      self.class.base_uri(BASE_URI + '/' + version) unless version.nil?
     end
 
     def list_investor_accounts
@@ -27,6 +25,7 @@ module Darwinex::Api
     end
 
     def list_conditional_orders(account_id, status, product_name: nil, page: nil, per_page: nil)
+      # TODO: status validation
       query = {
         query: {
           productName: product_name,
@@ -84,6 +83,7 @@ module Darwinex::Api
     end
 
     def list_trades(account_id, trade_status, product_name: nil, page: nil, per_page: nil)
+      # todo: verify status
       query = {
         query: {
           product_name: product_name,

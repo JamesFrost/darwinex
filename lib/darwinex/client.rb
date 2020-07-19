@@ -10,11 +10,10 @@ require_relative 'config'
 
 module Darwinex
   class Client
-    def initialize(consumer_key:, consumer_secret:, logger: Logger.new(STDOUT, progname: 'Darwinex'), investor_account_info_api_version: nil)
+    def initialize(consumer_key:, consumer_secret:, logger: Logger.new(STDOUT, progname: 'Darwinex'))
       @consumer_key = consumer_key
       @consumer_secret = consumer_secret
       @logger = logger
-      @investor_account_info_api_version = investor_account_info_api_version
     end
 
     def refresh_access_token(refresh_token)
@@ -66,13 +65,12 @@ module Darwinex
 
     private
 
-    attr_reader :consumer_key, :consumer_secret, :logger, :investor_account_info_api_version
+    attr_reader :consumer_key, :consumer_secret, :logger
 
     def investor_account_info_api
       @investor_account_info_api ||= Api::InvestorAccountInfoApi.new(
         config: config,
-        logger: logger,
-        version: investor_account_info_api_version
+        logger: logger
       )
     end
 
