@@ -49,13 +49,12 @@ module Darwinex
     end
 
     def conditional_orders(status, product_name: nil, page: nil, per_page: nil)
-      # TODO: status validation
       investor_account_info_api.list_conditional_orders(
         account_id,
         status,
         product_name: product_name,
         page: page,
-        per_page: per_page,
+        per_page: per_page
       )
     end
 
@@ -68,7 +67,7 @@ module Darwinex
         account_id,
         product_name: product_name,
         page: page,
-        per_page: per_page,
+        per_page: per_page
       )
     end
 
