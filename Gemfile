@@ -9,4 +9,5 @@ gem 'httparty', '~> 0.18.1'
 group :development, :test do
   gem 'vcr', '~> 6.0'
   gem 'webmock', '~> 3.8'
+  gem 'rspec', '~> 3.9'
 end
