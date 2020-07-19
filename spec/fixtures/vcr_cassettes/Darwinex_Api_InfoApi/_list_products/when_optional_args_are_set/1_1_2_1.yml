@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.darwinex.com/darwininfo/2.0/products?page=20&per_page=2&status=ACTIVE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer abc123
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 19 Jul 2020 15:12:01 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - POST,GET
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+    body:
+      encoding: UTF-8
+      string: '{"content":[{"productName":"AEB.5.4","shortName":"AEB","status":"ACTIVE","migrationDate":1537662726000,"validationDate":1538988064731,"resetDate":0,"currency":"USD"},{"productName":"AEC.5.8","shortName":"AEC","status":"ACTIVE","migrationDate":0,"validationDate":1512994404273,"resetDate":0,"currency":"EUR"}],"pageable":{"sort":{"sorted":false,"unsorted":true,"empty":true},"offset":40,"pageNumber":20,"pageSize":2,"unpaged":false,"paged":true},"last":false,"totalPages":3223,"totalElements":6445,"size":2,"number":20,"sort":{"sorted":false,"unsorted":true,"empty":true},"numberOfElements":2,"first":false,"empty":false}'
+  recorded_at: Sun, 19 Jul 2020 15:12:01 GMT
+recorded_with: VCR 6.0.0

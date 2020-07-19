@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.darwinex.com/darwininfo/2.0/products/DWC.4.20/scores
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer abc123
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 19 Jul 2020 15:14:22 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+    body:
+      encoding: UTF-8
+      string: '{"productName":"DWC.4.20","dc":5.2,"os":3.98,"cs":4.74,"mc":7.43,"rplus":3.76,"ra":10.0,"ex":10.0,"pf":4.52,"score":55.15,"rminus":4.22,"rs":6.04,"sc":10.0,"la":8.38,"cp":10.0}'
+  recorded_at: Sun, 19 Jul 2020 15:14:22 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.darwinex.com/darwininfo/2.0/products/DWC.4.20/candles?from=1595101548&resolution=&to=1595101542
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer abc123
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 19 Jul 2020 15:24:31 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+    body:
+      encoding: UTF-8
+      string: '{"candles":[],"period":{"start":1595101548,"end":1595101542},"resolution":"1m","supportedResolutions":["1m"]}'
+  recorded_at: Sun, 19 Jul 2020 15:24:31 GMT
+recorded_with: VCR 6.0.0

@@ -7,15 +7,13 @@ require_relative 'api'
 # https://api.darwinex.com/store/apis/info?name=DarwinInfoAPI&version=2.0&provider=admin#/
 module Darwinex::Api
   class InfoApi < Api
-    BASE_URI = 'https://api.darwinex.com/darwininfo/'
+    BASE_URI = 'https://api.darwinex.com/darwininfo/2.0'
 
     base_uri BASE_URI
 
-    def initialize(config:, logger:, version: nil)
+    def initialize(config:, logger:)
       super(logger)
       @config = config
-
-      self.class.base_uri(BASE_URI + '/' + version) unless version.nil?
     end
 
     def list_products(status: nil, page: nil, per_page: nil)
