@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.darwinex.com/trading/1.1/productmarket/status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer abc123
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 19 Jul 2020 15:35:27 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+    body:
+      encoding: UTF-8
+      string: '{"allowBuy":false,"allowConditionalBuy":true,"allowConditionalSell":true,"allowSell":false,"epochTimestampNextUpdate":1595192700000}'
+  recorded_at: Sun, 19 Jul 2020 15:35:27 GMT
+recorded_with: VCR 6.0.0

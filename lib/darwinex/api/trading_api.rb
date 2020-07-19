@@ -7,15 +7,13 @@ require_relative 'api'
 # https://api.darwinex.com/store/apis/info?name=DarwinTradingAPI&version=1.1&provider=admin#/
 module Darwinex::Api
   class TradingApi < Api
-    BASE_URI = 'https://api.darwinex.com/trading'
+    BASE_URI = 'https://api.darwinex.com/trading/1.1'
 
     base_uri BASE_URI
 
-    def initialize(config:, logger:, version: nil)
+    def initialize(config:, logger:)
       super(logger)
       @config = config
-
-      self.class.base_uri(BASE_URI + '/' + version) unless version.nil?
     end
 
     def create_conditional_order(account_id, conditional_order_dto)
