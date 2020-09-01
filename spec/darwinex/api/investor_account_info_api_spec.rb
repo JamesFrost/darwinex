@@ -6,6 +6,7 @@ RSpec.describe Darwinex::Api::InvestorAccountInfoApi do
   subject(:investor_account_info_api) { described_class.new(config: config, logger: logger) }
 
   let(:config) { instance_double('Darwinex::Config') }
+  let(:max_retries) { 2 }
   let(:logger) { Logger.new('/dev/null') }
 
   let(:access_token) { 'abc123' }
@@ -14,6 +15,7 @@ RSpec.describe Darwinex::Api::InvestorAccountInfoApi do
 
   before do
     expect(config).to receive(:access_token).with(no_args).and_return(access_token)
+    expect(config).to receive(:max_retries).with(no_args).and_return(max_retries)
   end
 
   describe '#list_investor_accounts', :vcr do

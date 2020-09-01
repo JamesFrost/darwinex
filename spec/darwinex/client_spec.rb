@@ -7,12 +7,14 @@ RSpec.describe Darwinex::Client do
     described_class.new(
       consumer_key: consumer_key,
       consumer_secret: consumer_secret,
+      max_retries: max_retries,
       logger: logger
     )
   end
 
   let(:consumer_key) { 'consumer_key' }
   let(:consumer_secret) { 'consumer_secret' }
+  let(:max_retries) { 2 }
   let(:logger) { Logger.new('/dev/null') }
 
   let(:trading_api) { instance_double('Darwinex::Api::TradingApi') }
@@ -24,9 +26,9 @@ RSpec.describe Darwinex::Client do
   before do
     allow(Darwinex::Api::TradingApi).to receive(:new).with(config: config, logger: logger).and_return(trading_api)
     allow(Darwinex::Api::InvestorAccountInfoApi).to receive(:new).with(config: config, logger: logger).and_return(investor_account_info_api)
-    allow(Darwinex::Api::TokenApi).to receive(:new).with(logger: logger).and_return(token_api)
+    allow(Darwinex::Api::TokenApi).to receive(:new).with(max_retries: max_retries, logger: logger).and_return(token_api)
     allow(Darwinex::Api::InfoApi).to receive(:new).with(config: config, logger: logger).and_return(info_api)
-    allow(Darwinex::Config).to receive(:new).with(token_api: token_api, consumer_key: consumer_key, consumer_secret: consumer_secret).and_return(config)
+    allow(Darwinex::Config).to receive(:new).with(token_api: token_api, consumer_key: consumer_key, consumer_secret: consumer_secret, max_retries: max_retries).and_return(config)
   end
 
   describe '#refresh_access_token' do

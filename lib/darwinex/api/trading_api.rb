@@ -21,7 +21,7 @@ module Darwinex::Api
         body: conditional_order_dto.to_json
       }
 
-      send('post', "/investoraccounts/#{account_id}/conditionalorders", options.merge(body))
+      send('post', "/investoraccounts/#{account_id}/conditionalorders", options.merge(body), max_retries: config.max_retries)
     end
 
     def update_conditional_order(account_id, conditional_order_id, conditional_order_dto)
@@ -29,15 +29,15 @@ module Darwinex::Api
         body: conditional_order_dto.to_json
       }
 
-      send('put', "/investoraccounts/#{account_id}/conditionalorders/#{conditional_order_id}", options.merge(body))
+      send('put', "/investoraccounts/#{account_id}/conditionalorders/#{conditional_order_id}", options.merge(body), max_retries: config.max_retries)
     end
 
     def delete_conditional_order(account_id, conditional_order_id)
-      send('delete', "/investoraccounts/#{account_id}/conditionalorders/#{conditional_order_id}", options)
+      send('delete', "/investoraccounts/#{account_id}/conditionalorders/#{conditional_order_id}", options, max_retries: config.max_retries)
     end
 
     def get_leverage(account_id)
-      send('get', "/investoraccounts/#{account_id}/leverage", options)
+      send('get', "/investoraccounts/#{account_id}/leverage", options, max_retries: config.max_retries)
     end
 
     def update_leverage(account_id, leverage)
@@ -45,7 +45,7 @@ module Darwinex::Api
         body: { leverage: leverage }.to_json
       }
 
-      send('put', "/investoraccounts/#{account_id}/leverage", options.merge(body))
+      send('put', "/investoraccounts/#{account_id}/leverage", options.merge(body), max_retries: config.max_retries)
     end
 
     def create_buy_order(account_id, buy_order)
@@ -53,7 +53,7 @@ module Darwinex::Api
         body: buy_order.to_json
       }
 
-      send('post', "/investoraccounts/#{account_id}/orders/buy", options.merge(body))
+      send('post', "/investoraccounts/#{account_id}/orders/buy", options.merge(body), max_retries: config.max_retries)
     end
 
     def create_sell_order(account_id, sell_order)
@@ -61,19 +61,19 @@ module Darwinex::Api
         body: sell_order.to_json
       }
 
-      send('post', "/investoraccounts/#{account_id}/orders/sell", options.merge(body))
+      send('post', "/investoraccounts/#{account_id}/orders/sell", options.merge(body), max_retries: config.max_retries)
     end
 
     def create_stopout(account_id)
-      send('post', "/investoraccounts/#{account_id}/stopout", options)
+      send('post', "/investoraccounts/#{account_id}/stopout", options, max_retries: config.max_retries)
     end
 
     def create_product_stopout(account_id, product_name)
-      send('post', "/investoraccounts/#{account_id}/stopout/#{product_name}", options)
+      send('post', "/investoraccounts/#{account_id}/stopout/#{product_name}", options, max_retries: config.max_retries)
     end
 
     def get_product_market_status
-      send('get', '/productmarket/status', options)
+      send('get', '/productmarket/status', options, max_retries: config.max_retries)
     end
 
     private

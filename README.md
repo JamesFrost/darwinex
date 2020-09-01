@@ -5,12 +5,17 @@
 Ruby client for the Darwinex API.
 
 ## Installation
-```
-Gemfile
+
+### Gemfile
+
+```ruby
+gem 'darwinex'
 ```
 
-```
-gem install darwinex
+### Install
+
+```bash
+$ gem install darwinex
 ```
 
 ## Usage
@@ -30,7 +35,27 @@ client = Darwinex::Client.new(
 )
 ```
 
-Generate a new access token for the client to use:
+If you would like to use a custom logger:
+
+```ruby
+client = Darwinex::Client.new(
+  consumer_key: "<consumer key>",
+  consumer_secret: "<consumer secret>",
+  logger: Logger.new(STDOUT)
+)
+```
+
+If you would like to configure the maximum number of API call retries:
+
+```ruby
+client = Darwinex::Client.new(
+  consumer_key: "<consumer key>",
+  consumer_secret: "<consumer secret>",
+  max_retries: 10 # Default: 5
+)
+```
+
+Before you use the client, you must generate a new access token for the client to use:
 
 ```ruby
 resp = client.refresh_access_token("<refresh token>")
@@ -315,7 +340,7 @@ Raised when the consumer key or secret passed to the client are not valid.
 
 Raised when you exceed the [API rate limit](https://help.darwinex.com/api-walkthrough#throttling).
 
-The client will automatically back off and retry throttled API responses.
+The client will automatically back off and retry throttled API responses until the max retries limit is hit.
 
 ### Refresh Token Expired
 

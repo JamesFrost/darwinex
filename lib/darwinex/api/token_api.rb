@@ -11,8 +11,9 @@ module Darwinex::Api
 
     base_uri BASE_URI
 
-    def initialize(logger:)
+    def initialize(max_retries:, logger:)
       super(logger)
+      @max_retries = max_retries
     end
 
     def refresh_access_token(refresh_token:, consumer_key:, consumer_secret:)
@@ -31,10 +32,12 @@ module Darwinex::Api
         }
       }
 
-      send('post', '/token', options.merge(body))
+      send('post', '/token', options.merge(body), max_retries: max_retries)
     end
 
     private
+
+    attr_reader :max_retries
 
     def generate_auth_token(consumer_key, consumer_secret)
       Base64.strict_encode64("#{consumer_key}:#{consumer_secret}")

@@ -25,7 +25,7 @@ module Darwinex::Api
         }
       }
 
-      send('get', '/products', options.merge(query))
+      send('get', '/products', options.merge(query), max_retries: config.max_retries)
     end
 
     def get_candles(product_name, resolution: nil, from:, to:)
@@ -37,47 +37,47 @@ module Darwinex::Api
         }
       }
 
-      send('get', "/products/#{product_name}/candles", options.merge(query))
+      send('get', "/products/#{product_name}/candles", options.merge(query), max_retries: config.max_retries)
     end
 
     def get_dxscore(product_name)
-      send('get', "/products/#{product_name}/dxscore", options)
+      send('get', "/products/#{product_name}/dxscore", options, max_retries: config.max_retries)
     end
 
     def get_badges(product_name)
-      send('get', "/products/#{product_name}/history/badges", options)
+      send('get', "/products/#{product_name}/history/badges", options, max_retries: config.max_retries)
     end
 
     def get_close_strategy(product_name)
-      send('get', "/products/#{product_name}/history/closestrategy", options)
+      send('get', "/products/#{product_name}/history/closestrategy", options, max_retries: config.max_retries)
     end
 
     def get_duration_consistency(product_name)
-      send('get', "/products/#{product_name}/history/durationconsistency", options)
+      send('get', "/products/#{product_name}/history/durationconsistency", options, max_retries: config.max_retries)
     end
 
     def get_experience(product_name)
-      send('get', "/products/#{product_name}/history/experience", options)
+      send('get', "/products/#{product_name}/history/experience", options, max_retries: config.max_retries)
     end
 
     def get_losing_consistency(product_name)
-      send('get', "/products/#{product_name}/history/losingconsistency", options)
+      send('get', "/products/#{product_name}/history/losingconsistency", options, max_retries: config.max_retries)
     end
 
     def get_market_correlation(product_name)
-      send('get', "/products/#{product_name}/history/marketcorrelation", options)
+      send('get', "/products/#{product_name}/history/marketcorrelation", options, max_retries: config.max_retries)
     end
 
     def get_performance(product_name)
-      send('get', "/products/#{product_name}/history/performance", options)
+      send('get', "/products/#{product_name}/history/performance", options, max_retries: config.max_retries)
     end
 
     def get_open_strategy(product_name)
-      send('get', "/products/#{product_name}/history/openstrategy", options)
+      send('get', "/products/#{product_name}/history/openstrategy", options, max_retries: config.max_retries)
     end
 
     def get_capacity(product_name)
-      send('get', "/products/#{product_name}/history/capacity", options)
+      send('get', "/products/#{product_name}/history/capacity", options, max_retries: config.max_retries)
     end
 
     def get_quotes(product_name, from: nil, to: nil)
@@ -88,43 +88,43 @@ module Darwinex::Api
         }
       }
 
-      send('get', "/products/#{product_name}/history/quotes", options.merge(query))
+      send('get', "/products/#{product_name}/history/quotes", options.merge(query), max_retries: config.max_retries)
     end
 
     def get_risk_adjustment(product_name)
-      send('get', "/products/#{product_name}/history/riskadjustment", options)
+      send('get', "/products/#{product_name}/history/riskadjustment", options, max_retries: config.max_retries)
     end
 
     def get_risk_stability(product_name)
-      send('get', "/products/#{product_name}/history/riskstability", options)
+      send('get', "/products/#{product_name}/history/riskstability", options, max_retries: config.max_retries)
     end
 
     def get_winning_consistency(product_name)
-      send('get', "/products/#{product_name}/history/winningconsistency", options)
+      send('get', "/products/#{product_name}/history/winningconsistency", options, max_retries: config.max_retries)
     end
 
     def get_order_divergence(product_name)
-      send('get', "/products/#{product_name}/history/orderdivergence", options)
+      send('get', "/products/#{product_name}/history/orderdivergence", options, max_retries: config.max_retries)
     end
 
     def get_return_divergence(product_name)
-      send('get', "/products/#{product_name}/history/returndivergence", options)
+      send('get', "/products/#{product_name}/history/returndivergence", options, max_retries: config.max_retries)
     end
 
     def get_monthly_divergence(product_name)
-      send('get', "/products/#{product_name}/monthlydivergence", options)
+      send('get', "/products/#{product_name}/monthlydivergence", options, max_retries: config.max_retries)
     end
 
     def get_product_status(product_name)
-      send('get', "/products/#{product_name}/status", options)
+      send('get', "/products/#{product_name}/status", options, max_retries: config.max_retries)
     end
 
     def get_product_scores(product_name)
-      send('get', "/products/#{product_name}/scores", options)
+      send('get', "/products/#{product_name}/scores", options, max_retries: config.max_retries)
     end
 
     def get_product_scores_badge(product_name, badge)
-      send('get', "/products/#{product_name}/scores/#{badge}", options)
+      send('get', "/products/#{product_name}/scores/#{badge}", options, max_retries: config.max_retries)
     end
 
     private

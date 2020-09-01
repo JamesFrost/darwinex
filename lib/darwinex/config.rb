@@ -2,12 +2,13 @@
 
 module Darwinex
   class Config
-    attr_reader :access_token
+    attr_reader :access_token, :max_retries
 
-    def initialize(token_api:, consumer_key:, consumer_secret:)
+    def initialize(token_api:, consumer_key:, consumer_secret:, max_retries:)
       @token_api = token_api
       @consumer_key = consumer_key
       @consumer_secret = consumer_secret
+      @max_retries = max_retries
     end
 
     def refresh_access_token(refresh_token)

@@ -7,13 +7,15 @@ RSpec.describe Darwinex::Config do
     described_class.new(
       token_api: token_api,
       consumer_key: consumer_key,
-      consumer_secret: consumer_secret
+      consumer_secret: consumer_secret,
+      max_retries: max_retries
     )
   end
 
   let(:token_api) { instance_double('Darwinex::Api::TokenApi') }
   let(:consumer_key) { 'consumer_key' }
   let(:consumer_secret) { 'consumer_secret' }
+  let(:max_retries) { 5 }
 
   describe '#refresh_access_token' do
     let(:refresh_token) { 'xyz321' }

@@ -6,6 +6,7 @@ RSpec.describe Darwinex::Api::TradingApi do
   subject(:info_api) { described_class.new(config: config, logger: logger) }
 
   let(:config) { instance_double('Darwinex::Config') }
+  let(:max_retries) { 5 }
   let(:logger) { Logger.new('/dev/null') }
 
   let(:access_token) { 'abc123' }
@@ -14,6 +15,7 @@ RSpec.describe Darwinex::Api::TradingApi do
 
   before do
     expect(config).to receive(:access_token).with(no_args).and_return(access_token)
+    expect(config).to receive(:max_retries).with(no_args).and_return(max_retries)
   end
 
   xdescribe '#create_conditional_order', :vcr do

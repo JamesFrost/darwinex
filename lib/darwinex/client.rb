@@ -10,9 +10,12 @@ require_relative 'config'
 
 module Darwinex
   class Client
-    def initialize(consumer_key:, consumer_secret:, logger: Logger.new(STDOUT, progname: 'Darwinex'))
+    MAX_RETRIES = 5
+
+    def initialize(consumer_key:, consumer_secret:, max_retries: MAX_RETRIES, logger: Logger.new(STDOUT, progname: 'Darwinex'))
       @consumer_key = consumer_key
       @consumer_secret = consumer_secret
+      @max_retries = max_retries
       @logger = logger
     end
 
@@ -65,7 +68,7 @@ module Darwinex
 
     private
 
-    attr_reader :consumer_key, :consumer_secret, :logger
+    attr_reader :consumer_key, :consumer_secret, :logger, :max_retries
 
     def investor_account_info_api
       @investor_account_info_api ||= Api::InvestorAccountInfoApi.new(
@@ -85,12 +88,13 @@ module Darwinex
       @config ||= Config.new(
         token_api: token_api,
         consumer_key: consumer_key,
-        consumer_secret: consumer_secret
+        consumer_secret: consumer_secret,
+        max_retries: max_retries
       )
     end
 
     def token_api
-      @token_api ||= Api::TokenApi.new(logger: logger)
+      @token_api ||= Api::TokenApi.new(max_retries: max_retries, logger: logger)
     end
 
     def info_api

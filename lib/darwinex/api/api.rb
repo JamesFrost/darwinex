@@ -9,13 +9,11 @@ module Darwinex::Api
   class Api
     include HTTParty
 
-    MAX_RETRIES = 5
-
     def initialize(logger)
       @logger = logger
     end
 
-    def send(http_method, path, options, max_retries: MAX_RETRIES)
+    def send(http_method, path, options, max_retries:)
       response = backoff_and_retry(http_method, path, options, max_retries: max_retries)
 
       response.parsed_response
