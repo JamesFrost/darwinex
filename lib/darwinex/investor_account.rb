@@ -2,6 +2,8 @@
 
 module Darwinex
   class InvestorAccount
+    attr_reader :account_id
+
     def initialize(account_id:, trading_api:, investor_account_info_api:)
       @account_id = account_id
       @trading_api = trading_api
@@ -93,6 +95,6 @@ module Darwinex
 
     private
 
-    attr_reader :account_id, :trading_api, :investor_account_info_api
+    attr_reader :trading_api, :investor_account_info_api
   end
 end
