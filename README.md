@@ -90,7 +90,43 @@ client.investor_account("<account id>").create_stopout(product_name)
 ```
 
 ```ruby
-conditional_orders # TODO
+order = {
+  'amount' => 215.15,
+  'productName' => 'DWC.4.20',
+  'quote' => 20.23,
+  'side' => 'BUY',
+  'type' => 'LESS_THAN_EQUAL',
+  'thresholdParameters' => {
+    'quoteStopLoss' => 10.05,
+    'quoteTakeProfit' => 250.1
+  }
+}
+
+client.investor_account("<account id>").create_conditional_order(order)
+```
+
+```ruby
+order_id = 123
+
+order = {
+  'amount' => 215.15,
+  'productName' => 'DWC.4.20',
+  'quote' => 20.23,
+  'side' => 'BUY',
+  'type' => 'LESS_THAN_EQUAL',
+  'thresholdParameters' => {
+    'quoteStopLoss' => 10.05,
+    'quoteTakeProfit' => 250.1
+  }
+}
+
+client.investor_account("<account id>").update_conditional_order(order_id, order)
+```
+
+```ruby
+order_id = 123
+
+client.investor_account("<account id>").delete_conditional_order(order_id)
 ```
 
 ```ruby
@@ -104,7 +140,17 @@ client.investor_account("<account id>").current_positions(product_name)
 ```
 
 ```ruby
-executed_orders # TODO
+client.investor_account("<account id>").executed_orders
+```
+
+```ruby
+options = {
+  product_name: 'DWC.4.20',
+  page: 2,
+  per_page: 10
+}
+
+client.investor_account("<account id>").executed_orders(options)
 ```
 
 ```ruby
@@ -114,7 +160,16 @@ client.investor_account("<account id>").order(order_id)
 ```
 
 ```ruby
-performance_fees # todo
+client.investor_account("<account id>").performance_fees
+```
+
+```ruby
+options = {
+  page: 2,
+  per_page: 10
+}
+
+client.investor_account("<account id>").performance_fees(options)
 ```
 
 ```ruby
@@ -124,7 +179,21 @@ client.investor_account("<account id>").product_performance_fees(product_name)
 ```
 
 ```ruby
-trades # todo
+trade_status = 'open'
+
+client.investor_account("<account id>").trades(trade_status)
+```
+
+```ruby
+trade_status = 'open'
+
+options = {
+  product_name: 'DWC.4.20',
+  page: 2,
+  per_page: 10
+}
+
+client.investor_account("<account id>").trades(trade_status, options)
 ```
 
 ```ruby
@@ -145,7 +214,11 @@ client.product("<product name>")
 ```
 
 ```ruby
-candles # todo
+client.product("<product name>").candles(from: epoch_timestamp, to: epoch_timestamp)
+```
+
+```ruby
+client.product("<product name>").candles(resolution: '1m', from: epoch_timestamp, to: epoch_timestamp)
 ```
 
 ```ruby
@@ -189,7 +262,11 @@ client.product("<product name>").capacity
 ```
 
 ```ruby
-quotes # todo
+client.product("<product name>").quotes
+```
+
+```ruby
+client.product("<product name>").quotes(from: epoch_timestamp, to: epoch_timestamp)
 ```
 
 ```ruby
