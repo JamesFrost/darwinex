@@ -2,6 +2,8 @@
 
 module Darwinex
   class Product
+    attr_reader :product_name
+
     def initialize(product_name:, info_api:)
       @product_name = product_name
       @info_api = info_api
@@ -98,6 +100,6 @@ module Darwinex
 
     private
 
-    attr_reader :product_name, :info_api
+    attr_reader :info_api
   end
 end
